@@ -27,6 +27,14 @@ const defaultPosts = [
   }
 ];
 
+function formatPostContent(content) {
+  return content
+    .trim()
+    .replace(/\r\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/\n/g, '<br>');
+}
+
 function createPostCard(post) {
   const article = document.createElement('article');
   article.className = 'article-card';
@@ -38,12 +46,7 @@ function createPostCard(post) {
   }) : 'Recently added';
 
   const excerpt = post.excerpt || post.content.slice(0, 180) + (post.content.length > 180 ? '...' : '');
-  const content = post.content
-    .trim()
-    .replace(/\r\n/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/\n/g, '<br>');
-
+  const content = formatPostContent(post.content);
   const slug = post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
   article.innerHTML = `

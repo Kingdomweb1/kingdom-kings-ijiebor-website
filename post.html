@@ -38,27 +38,55 @@
     </footer>
 
     <script>
-      const posts = [
+      const storageKey = 'kingdom-posts';
+      const defaultPosts = [
         {
           title: 'The Power of Purpose in Daily Living',
-          date: '2026-07-10',
-          content: 'A life without purpose often wanders in confusion. When a person understands their calling, they begin to live with clarity, discipline, and reverence for the work God has placed before them. Purpose is not only discovered in moments of vision; it is shaped through obedience, consistency, and faithful service.'
+          excerpt: 'Purpose gives direction to life, leadership, and service.',
+          content: 'A life without purpose often wanders in confusion. When a person understands their calling, they begin to live with clarity, discipline, and reverence for the work God has placed before them. Purpose is not only discovered in moments of vision; it is shaped through obedience, consistency, and faithful service.',
+          date: '2026-07-10T10:00:00.000Z'
         },
         {
           title: 'Leadership Begins with Character',
-          date: '2026-07-18',
-          content: 'Many people seek influence, yet they neglect the foundation that sustains lasting impact. Character is what keeps leadership from becoming shallow or self-serving. A leader who is governed by truth, discipline, and compassion will build trust and leave a deeper mark on others.'
+          excerpt: 'True leadership is rooted in integrity and humility.',
+          content: 'Many people seek influence, yet they neglect the foundation that sustains lasting impact. Character is what keeps leadership from becoming shallow or self-serving. A leader who is governed by truth, discipline, and compassion will build trust and leave a deeper mark on others.',
+          date: '2026-07-18T10:00:00.000Z'
         },
         {
           title: 'Walking in Wisdom in a Confused Generation',
-          date: '2026-07-25',
-          content: 'The world is full of voices, but not all of them lead to truth. Wisdom helps believers discern what is valuable, what is lasting, and what honors God. It teaches us to live with balance, patience, and sound judgment even when the culture around us is unstable.'
+          excerpt: 'Wisdom is essential for staying grounded in a noisy age.',
+          content: 'The world is full of voices, but not all of them lead to truth. Wisdom helps believers discern what is valuable, what is lasting, and what honors God. It teaches us to live with balance, patience, and sound judgment even when the culture around us is unstable.',
+          date: '2026-07-25T10:00:00.000Z'
         }
       ];
+
+      function getPosts() {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length) {
+              return parsed;
+            }
+          } catch (error) {
+            console.warn('Unable to read saved posts:', error);
+          }
+        }
+        return defaultPosts;
+      }
+
+      function formatPostContent(content) {
+        return content
+          .trim()
+          .replace(/\r\n/g, '\n')
+          .replace(/\n{3,}/g, '\n\n')
+          .replace(/\n/g, '<br>');
+      }
 
       const params = new URLSearchParams(window.location.search);
       const slug = params.get('post');
       const container = document.getElementById('post-detail');
+      const posts = getPosts();
 
       const post = posts.find((item) => item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug);
 
@@ -67,7 +95,7 @@
         container.innerHTML = `
           <h1>${post.title}</h1>
           <p class="list-text"><small>${published}</small></p>
-          <p>${post.content}</p>
+          <div class="post-body">${formatPostContent(post.content)}</div>
         `;
       } else {
         container.innerHTML = '<h1>Post not found</h1><p>The requested article could not be found.</p>';
