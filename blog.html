@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | Kingdom Kings Ijiebor</title>
+    <meta name="description" content="Read articles, teachings, and reflections from Kingdom Kings Ijiebor." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <a href="index.html" class="brand">Kingdom Kings Ijiebor</a>
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="blog.html">Blog</a>
+            <a href="training.html">Training</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <h1>Teaching & Reflections</h1>
+          <p class="section-intro">
+            Copy your old posts in one by one and publish them here as a clean blog archive.
+          </p>
+
+          <div class="card" style="margin-bottom:1rem;">
+            <form id="post-form" class="form-grid">
+              <div class="form-field">
+                <label for="post-title">Post Title</label>
+                <input id="post-title" name="title" type="text" placeholder="Enter the post title" required />
+              </div>
+              <div class="form-field">
+                <label for="post-excerpt">Short Summary</label>
+                <input id="post-excerpt" name="excerpt" type="text" placeholder="Short description for the post preview" />
+              </div>
+              <div class="form-field">
+                <label for="post-content">Post Content</label>
+                <textarea id="post-content" name="content" placeholder="Paste the full post content here" required></textarea>
+              </div>
+              <div class="hero-actions">
+                <button class="btn btn-primary" type="submit">Add Post</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="posts-list" class="blog-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>New posts can be added here as your archive grows.</p>
+      </div>
+    </footer>
+
+    <script src="blog.js"></script>
+  </body>
+</html>
