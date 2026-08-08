@@ -44,8 +44,10 @@ function createPostCard(post) {
     .replace(/\n{3,}/g, '\n\n')
     .replace(/\n/g, '<br>');
 
+  const slug = post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
   article.innerHTML = `
-    <h3>${post.title}</h3>
+    <h3><a href="post.html?post=${slug}">${post.title}</a></h3>
     <p class="list-text"><small>${published}</small></p>
     <p>${excerpt}</p>
     <div class="post-body">${content}</div>
@@ -105,8 +107,9 @@ function renderPosts(posts) {
     previewPosts.forEach((post) => {
       const previewCard = document.createElement('article');
       previewCard.className = 'article-card';
+      const slug = post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       previewCard.innerHTML = `
-        <h3>${post.title}</h3>
+        <h3><a href="post.html?post=${slug}">${post.title}</a></h3>
         <p class="list-text"><small>${new Date(post.date || Date.now()).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}</small></p>
         <p>${post.excerpt || post.content.slice(0, 120) + (post.content.length > 120 ? '...' : '')}</p>
       `;

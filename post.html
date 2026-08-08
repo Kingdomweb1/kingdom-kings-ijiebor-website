@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Post | Kingdom Kings Ijiebor</title>
+    <meta name="description" content="Read a full teaching article from Kingdom Kings Ijiebor." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <a href="index.html" class="brand">Kingdom Kings Ijiebor</a>
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="blog.html">Blog</a>
+            <a href="training.html">Training</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <div class="post-detail-card" id="post-detail"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p><a href="blog.html">← Back to blog</a></p>
+      </div>
+    </footer>
+
+    <script>
+      const posts = [
+        {
+          title: 'The Power of Purpose in Daily Living',
+          date: '2026-07-10',
+          content: 'A life without purpose often wanders in confusion. When a person understands their calling, they begin to live with clarity, discipline, and reverence for the work God has placed before them. Purpose is not only discovered in moments of vision; it is shaped through obedience, consistency, and faithful service.'
+        },
+        {
+          title: 'Leadership Begins with Character',
+          date: '2026-07-18',
+          content: 'Many people seek influence, yet they neglect the foundation that sustains lasting impact. Character is what keeps leadership from becoming shallow or self-serving. A leader who is governed by truth, discipline, and compassion will build trust and leave a deeper mark on others.'
+        },
+        {
+          title: 'Walking in Wisdom in a Confused Generation',
+          date: '2026-07-25',
+          content: 'The world is full of voices, but not all of them lead to truth. Wisdom helps believers discern what is valuable, what is lasting, and what honors God. It teaches us to live with balance, patience, and sound judgment even when the culture around us is unstable.'
+        }
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('post');
+      const container = document.getElementById('post-detail');
+
+      const post = posts.find((item) => item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug);
+
+      if (post) {
+        const published = new Date(post.date).toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' });
+        container.innerHTML = `
+          <h1>${post.title}</h1>
+          <p class="list-text"><small>${published}</small></p>
+          <p>${post.content}</p>
+        `;
+      } else {
+        container.innerHTML = '<h1>Post not found</h1><p>The requested article could not be found.</p>';
+      }
+    </script>
+  </body>
+</html>
